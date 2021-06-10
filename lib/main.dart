@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_task/test.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,6 +26,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _textController1 = TextEditingController();
   final _textController2 = TextEditingController();
+  bool _obscureText = true;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 45,
               ),
               Text(
                 "Email",
@@ -101,6 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 10,
               ),
               TextField(
+                obscureText: _obscureText,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
@@ -109,6 +119,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   hintText: "Enter your password",
                   hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+                  suffixIcon: InkWell(
+                    onTap: _toggle,
+                    child: Icon(
+                      _obscureText ? Icons.lock : Icons.lock_open,
+                      size: 17.0,
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                  ),
                   // filled: true,
                   // fillColor: Color(0xffe6edf3).withOpacity(0.2),
                   // border: OutlineInputBorder(
@@ -118,15 +136,21 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _textController2,
               ),
               SizedBox(
-                height: 50,
+                height: 53,
               ),
               Align(
                 alignment: Alignment.center,
                 child: ConstrainedBox(
                   constraints: BoxConstraints.tightFor(width: 350, height: 50),
                   child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Login"),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Test()));
+                    },
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 22),
+                    ),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff0165ff),
                       elevation: 2,
@@ -139,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(
-                height: 7,
+                height: 9,
               ),
               Align(
                 alignment: Alignment.topRight,
@@ -153,6 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                         color: Color(0xff0165ff)),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 30,
               ),
               Column(
                 children: [
@@ -178,13 +205,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account?",
+                    "New user?",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 19,
                         color: Colors.black.withOpacity(0.8),
                         fontWeight: FontWeight.w500),
                   ),
@@ -194,9 +224,9 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Sign up",
+                      "Create an account",
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 19,
                           fontWeight: FontWeight.w600,
                           color: Color(0xff0165ff)),
                     ),
